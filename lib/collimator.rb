@@ -1,9 +1,9 @@
-require File.expand_path("../tabula/version", __FILE__)
+require File.expand_path("../collimator/version", __FILE__)
 
 require 'rubygems'
 require 'colored'
 
-module Tabula
+module Collimator
 
   class TooManyDataPoints < Exception
   end

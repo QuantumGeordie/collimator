@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class TestProgressBar < Test::Unit::TestCase
-  include Tabula
-  #include ProgressBar
+  include Collimator
 
   def teardown
     $stdout = STDOUT

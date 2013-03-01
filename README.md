@@ -1,16 +1,16 @@
-# Tabula
+# Collimator
 
 a little gem for making simple formatted tables of data in a command line ruby script/gem/app.
 
 ## Travis-ci.org
 
-[![Build Status](https://travis-ci.org/QuantumGeordie/tabula.png?branch=master)](https://travis-ci.org/QuantumGeordie/tabula)
+[![Build Status](https://travis-ci.org/QuantumGeordie/collimator.png?branch=master)](https://travis-ci.org/QuantumGeordie/collimator)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'tabula'
+    gem 'collimator'
 
 And then execute:
 
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install tabula
+    $ gem install collimator
 
 ## Usage
 

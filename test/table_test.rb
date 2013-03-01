@@ -1,11 +1,11 @@
 require 'test/unit'
-require 'tabula'
+require 'collimator'
 require 'date'
 require 'stringio'
 require 'test_helper'
 
 class TestTable < Test::Unit::TestCase
-  include Tabula
+  include Collimator
 
   def setup
     Table.clear_all
@@ -355,9 +355,9 @@ class TestTable < Test::Unit::TestCase
     assert_equal '+---------------------------------------------+', table_lines[6]
 
   end
-  
+
   def test_table__csv_output
-    
+
     header_text  = ['head A', 'head B', 'head C']
     header_width = [12, 10, 14]
     col_just     = [:left, :right, :left]
@@ -381,11 +381,11 @@ class TestTable < Test::Unit::TestCase
 
     lines = csv_output.split("\n")
     assert_equal 9, lines.count
-        
+
     assert_equal table_header, lines[0]
     assert_equal 'second', lines[1]
     assert_equal header_text.join(','), lines[2]
-    
+
     assert_equal '1,!,1', lines[3]
     assert_equal '2,",4', lines[4]
     assert_equal '3,#,9', lines[5]
@@ -438,11 +438,11 @@ class TestTable < Test::Unit::TestCase
         Table.row(data)
         Table.separator if i == 3
       end
-      
+
       line_text = out.string.chomp
       assert_equal expected_lines[i], line_text.split("\n")[0]
       assert_equal '|--------------+------------+----------------|', line_text.split("\n")[1] if i == 3
-      
+
     end
 
     Table.footer("this data is for practice", :padding => 1, :justification => :center)
@@ -454,7 +454,7 @@ class TestTable < Test::Unit::TestCase
     footer_text = out.string
     footer_lines = footer_text.split("\n")
     assert_equal 3, footer_lines.length
-    
+
     assert_equal '+--------------------------------------------+', footer_lines[0]
     assert_equal '|         this data is for practice          |', footer_lines[1]
     assert_equal '+--------------------------------------------+', footer_lines[2]

@@ -1,5 +1,5 @@
 require 'test/unit'
-require File.expand_path('../../lib/tabula', __FILE__)
+require File.expand_path('../../lib/collimator', __FILE__)
 require 'stringio'
 require 'date'
 

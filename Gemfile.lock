@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tabula (0.0.4)
+    collimator (0.0.1)
       colored
 
 GEM
@@ -18,7 +18,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  collimator!
   open4
   rake (~> 0.9.2)
   rdoc
-  tabula!
