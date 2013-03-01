@@ -22,7 +22,61 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Table
+see a few samples in `examples`.
+
+    Table.header("Collimator")
+    Table.header("Usage Example")
+    Table.header("Can have lots of headers")
+
+    Table.column('',        :width => 18, :padding => 2, :justification => :right)
+    Table.column('numbers', :width => 14, :justification => :center)
+    Table.column('words',   :width => 12, :justification => :left, :padding => 2)
+    Table.column('decimal', :width => 12, :justification => :decimal)
+
+    Table.row(['george', 123, 'holla', 12.5])
+    Table.row(['jim', 8, 'hi', 76.58])
+    Table.row(['robert', 10000, 'greetings', 0.2])
+
+    Table.footer("gotta love it", :justification => :center)
+
+    Table.tabulate
+
+will result in...
+
+    +---------------------------------------------------------------+
+    |                          Collimator                           |
+    |                         Usage Example                         |
+    |                   Can have lots of headers                    |
+    +---------------------------------------------------------------+
+    |                    |   numbers    |  words       |  decimal   |
+    |--------------------+--------------+--------------+------------|
+    |            george  |     123      |  holla       |    12.5    |
+    |               jim  |      8       |  hi          |    76.58   |
+    |            robert  |    10000     |  greetings   |     0.2    |
+    +---------------------------------------------------------------+
+    |                         gotta love it                         |
+    +---------------------------------------------------------------+
+
+### Spinner
+
+    Spinner.spin
+    # ...
+    Spinner.stop
+
+### Progress Bar
+
+    ProgressBar.start({:min => 0, :max => 100, :method => :percent, :step_size => 10})
+
+    0.upto(10) do
+      # ...
+      ProgressBar.increment
+    end
+
+    ProgressBar.complete
+
+
+Better usage coming. in the mean time, tests might show best how to use.
 
 ## Contributing
 
