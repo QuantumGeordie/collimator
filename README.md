@@ -2,6 +2,9 @@
 
 a little gem for making simple formatted tables of data in a command line ruby script/gem/app.
 
+## Travis-ci.org
+[![Build Status](https://travis-ci.org/QuantumGeordie/tabula.png)](https://travis-ci.org/QuantumGeordie/tabula)
+
 ## Installation
 
 Add this line to your application's Gemfile:
