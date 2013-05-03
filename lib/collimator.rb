@@ -320,17 +320,23 @@ module Collimator
 
     def self.style_color(rgb)
       luminance = get_luminance(rgb)
-      color = luminance < 50 ? "#EEEEEE" : "#222222"
-      color_style = "color: #{color}"
+      color = luminance < 50 ? '#EEEEEE' : '#222222'
+      color_style = "color: #{color};"
+    end
+
+    def self.style_header_border(rgb)
+      luminance = get_luminance(rgb)
+      color = luminance < 50 ? '#EEEEEE' : '#222222'
+      color_style = "border-bottom: 1px solid #{color};"
     end
 
     def self.get_luminance(rgb)
-      rgb.gsub!("#", '')
+      rgb_temp = rgb.gsub("#", '')
       luminance = 0
-      if rgb.length == 6
-        r = rgb[0..1].hex
-        g = rgb[2..3].hex
-        b = rgb[4..5].hex
+      if rgb_temp.length == 6
+        r = rgb_temp[0..1].hex
+        g = rgb_temp[2..3].hex
+        b = rgb_temp[4..5].hex
         luminance = (0.299*r + 0.587*g + 0.114*b)
       end
       luminance
@@ -339,10 +345,13 @@ module Collimator
     def self.put_column_heading_text_html
       c = @last_header_color
       text_color = style_color(c)
-      out = "<tr STYLE=\"background-color: #{@last_header_color}; #{text_color}; border-bottom: 1px solid #999999;\">\n"
-
+      border_color = style_header_border(c)
+      out = "<tr STYLE=\"background-color: #{@last_header_color}; #{text_color} #{border_color}\">\n"
+      column = 0
       @column_names.each do |cname|
-        out += "<th>#{cname}</th>\n"
+        padding_style = @columns[column][:padding] ? "STYLE=\"padding-left: #{@columns[column][:padding]}em; padding-right: #{@columns[column][:padding]}em;\"" : ""
+        out += "<th #{padding_style}>#{cname}</th>\n"
+        column += 1
       end
 
       out += "</tr>\n"
@@ -393,7 +402,7 @@ module Collimator
 
       text_color = style_color(@last_header_color)
       header_line =  "<tr>"
-      header_line += "<th STYLE=\"background-color: #{@last_header_color}; #{text_color};\" colspan='#{@column_names.count + 1}'>#{data[:text]}</th>"
+      header_line += "<th STYLE=\"background-color: #{@last_header_color}; #{text_color}\" colspan='#{@column_names.count + 1}'>#{data[:text]}</th>"
       header_line += "</tr>"
       header_line
     end

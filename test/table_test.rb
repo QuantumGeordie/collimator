@@ -649,7 +649,7 @@ class TestTable < Test::Unit::TestCase
     Table.header(table_header, :color => '#FF9933')
 
     (0..header_text.length - 1).each do |i|
-      Table.column(header_text[i], :padding => 1.2)
+      Table.column(header_text[i], :width => 10, :padding => 1.2, :justification => :center)
     end
 
     Table.row([1, 2, 3, 4])
@@ -657,17 +657,19 @@ class TestTable < Test::Unit::TestCase
 
     table_text = Table.tabulate_to_html
 
+    # puts table_text
+
     table_lines = table_text.split("\n")
     assert_equal 25, table_lines.length, 'the number of lines in the table output'
 
     assert_equal '<table STYLE="font-family: helvetica, verdana, tahoma; border-collapse: collapse;">',      table_lines[0]
     assert_equal '<thead>',                                                                                  table_lines[1]
-    assert_equal "<tr><th STYLE=\"background-color: FF9933; color: #222222;\" colspan='5'>header</th></tr>", table_lines[2]
-    assert_equal '<tr STYLE="background-color: FF9933; color: #222222; border-bottom: 1px solid #999999;">', table_lines[3]
-    assert_equal '<th>a</th>',                                                                               table_lines[4]
-    assert_equal '<th>b</th>',                                                                               table_lines[5]
-    assert_equal '<th>c</th>',                                                                               table_lines[6]
-    assert_equal '<th>d</th>',                                                                               table_lines[7]
+    assert_equal "<tr><th STYLE=\"background-color: #FF9933; color: #222222;\" colspan='5'>header</th></tr>", table_lines[2]
+    assert_equal '<tr STYLE="background-color: #FF9933; color: #222222; border-bottom: 1px solid #222222;">', table_lines[3]
+    assert_equal '<th STYLE="padding-left: 1.2em; padding-right: 1.2em;">a</th>',                                                                               table_lines[4]
+    assert_equal '<th STYLE="padding-left: 1.2em; padding-right: 1.2em;">b</th>',                                                                               table_lines[5]
+    assert_equal '<th STYLE="padding-left: 1.2em; padding-right: 1.2em;">c</th>',                                                                               table_lines[6]
+    assert_equal '<th STYLE="padding-left: 1.2em; padding-right: 1.2em;">d</th>',                                                                               table_lines[7]
     assert_equal '</tr>',                                                                                    table_lines[8]
     assert_equal '</thead>',                                                                                 table_lines[9]
     assert_equal '<tbody>',                                                                                  table_lines[10]
