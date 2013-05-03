@@ -1,5 +1,6 @@
 require 'test/unit'
-require 'collimator'
+require File.expand_path("../../lib/collimator", __FILE__)
+
 require 'date'
 require 'stringio'
 require 'test_helper'
@@ -640,8 +641,54 @@ class TestTable < Test::Unit::TestCase
     assert_equal '+--------------------------------------------+', table_lines[13]
   end
 
-  def test_html_output
+  def test_html_output_formatted
+    header_text = ['a', 'b', 'c', 'd']
 
+    table_header = 'header'
+
+    Table.header(table_header, :color => '#FF9933')
+
+    (0..header_text.length - 1).each do |i|
+      Table.column(header_text[i], :padding => 1.2)
+    end
+
+    Table.row([1, 2, 3, 4])
+    Table.row([1.1, 2.1, 3.1, 4.1])
+
+    table_text = Table.tabulate_to_html
+
+    table_lines = table_text.split("\n")
+    assert_equal 25, table_lines.length, 'the number of lines in the table output'
+
+    assert_equal '<table STYLE="font-family: helvetica, verdana, tahoma; border-collapse: collapse;">',      table_lines[0]
+    assert_equal '<thead>',                                                                                  table_lines[1]
+    assert_equal "<tr><th STYLE=\"background-color: FF9933; color: #222222;\" colspan='5'>header</th></tr>", table_lines[2]
+    assert_equal '<tr STYLE="background-color: FF9933; color: #222222; border-bottom: 1px solid #999999;">', table_lines[3]
+    assert_equal '<th>a</th>',                                                                               table_lines[4]
+    assert_equal '<th>b</th>',                                                                               table_lines[5]
+    assert_equal '<th>c</th>',                                                                               table_lines[6]
+    assert_equal '<th>d</th>',                                                                               table_lines[7]
+    assert_equal '</tr>',                                                                                    table_lines[8]
+    assert_equal '</thead>',                                                                                 table_lines[9]
+    assert_equal '<tbody>',                                                                                  table_lines[10]
+    assert_equal '<tr>',                                                                                     table_lines[11]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">1</td>',                            table_lines[12]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">2</td>',                            table_lines[13]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">3</td>',                            table_lines[14]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">4</td>',                            table_lines[15]
+    assert_equal '</tr>',                                                                                    table_lines[16]
+    assert_equal '<tr>',                                                                                     table_lines[17]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">1.1</td>',                          table_lines[18]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">2.1</td>',                          table_lines[19]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">3.1</td>',                          table_lines[20]
+    assert_equal '<td STYLE="padding-left: 1.2em; padding-right: 1.2em;">4.1</td>',                          table_lines[21]
+    assert_equal '</tr>',                                                                                    table_lines[22]
+    assert_equal '</tbody>',                                                                                 table_lines[23]
+    assert_equal '</table>',                                                                                 table_lines[24]
+
+  end
+
+  def xtest_html_output
     header_text = ['a', 'b', 'c', 'd']
 
     table_header = 'header'
@@ -656,8 +703,6 @@ class TestTable < Test::Unit::TestCase
     Table.row([1.1, 2.1, 3.1, 4.1])
 
     table_text = Table.tabulate_to_html
-
-    #assert_equal "booty", table_text
 
     table_lines = table_text.split("\n")
     assert_equal 25, table_lines.length, 'the number of lines in the table output'
@@ -687,8 +732,6 @@ class TestTable < Test::Unit::TestCase
     assert_equal '</tr>',                                table_lines[22]
     assert_equal '</tbody>',                             table_lines[23]
     assert_equal '</table>',                             table_lines[24]
-
-
   end
 
 

@@ -25,6 +25,7 @@ module Collimator
     @table_string = []
     @use_capture_string = false
     @use_capture_html = false
+    @last_header_color = '#EEEEEE'
 
     def self.live_update=(live_upate)
       @live_update = live_upate
@@ -51,9 +52,9 @@ module Collimator
     end
 
     def self.header(text, opts = {})
-      width, padding, justification = parse_options(opts)
+      width, padding, justification, color = parse_options(opts)
 
-      @headers << { :text => text, :padding => padding, :justification => justification }
+      @headers << { :text => text, :padding => padding, :justification => justification , :color => color}
     end
 
     def self.footer(text, opts)
@@ -125,7 +126,7 @@ module Collimator
 
     def self.prep_html_table
       @table_string = []
-      @table_string << "<table>"
+      @table_string << "<table STYLE=\"font-family: helvetica, verdana, tahoma; border-collapse: collapse;\">"
     end
 
     def self.complete_html_table
@@ -317,8 +318,28 @@ module Collimator
       put_horizontal_line_with_dividers
     end
 
+    def self.style_color(rgb)
+      luminance = get_luminance(rgb)
+      color = luminance < 50 ? "#EEEEEE" : "#222222"
+      color_style = "color: #{color}"
+    end
+
+    def self.get_luminance(rgb)
+      rgb.gsub!("#", '')
+      luminance = 0
+      if rgb.length == 6
+        r = rgb[0..1].hex
+        g = rgb[2..3].hex
+        b = rgb[4..5].hex
+        luminance = (0.299*r + 0.587*g + 0.114*b)
+      end
+      luminance
+    end
+
     def self.put_column_heading_text_html
-      out = "<tr>\n"
+      c = @last_header_color
+      text_color = style_color(c)
+      out = "<tr STYLE=\"background-color: #{@last_header_color}; #{text_color}; border-bottom: 1px solid #999999;\">\n"
 
       @column_names.each do |cname|
         out += "<th>#{cname}</th>\n"
@@ -368,8 +389,11 @@ module Collimator
     end
 
     def self.make_header_line_html(data)
+      @last_header_color = data[:color] || @last_header_color
+
+      text_color = style_color(@last_header_color)
       header_line =  "<tr>"
-      header_line += "<th colspan='#{@column_names.count + 1}'>#{data[:text]}</th>"
+      header_line += "<th STYLE=\"background-color: #{@last_header_color}; #{text_color};\" colspan='#{@column_names.count + 1}'>#{data[:text]}</th>"
       header_line += "</tr>"
       header_line
     end
@@ -404,7 +428,9 @@ module Collimator
       row_string = "<tr>\n"
 
       row_data.each do | val |
-        row_string += "<td>#{val}</td>\n"
+        style_info = @columns[column][:padding] ? " STYLE=\"padding-left: #{@columns[column][:padding]}em; padding-right: #{@columns[column][:padding]}em;\"" : ''
+        row_string += "<td#{style_info}>#{val}</td>\n"
+        column += 1
       end
 
       row_string += "</tr>"
