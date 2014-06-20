@@ -1,11 +1,6 @@
 require_relative 'test_helper'
 
 class TestSpinner < Minitest::Test
-  include Collimator
-
-  def teardown
-    $stdout = STDOUT
-  end
 
   def test_spinner
     spin_time = 1

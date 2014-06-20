@@ -1,11 +1,6 @@
 require_relative 'test_helper'
 
 class TestProgressBar < Minitest::Test
-  include Collimator
-
-  def teardown
-    $stdout = STDOUT
-  end
 
   def test_progress
     out = capture_output do

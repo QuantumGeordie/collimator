@@ -1,14 +1,9 @@
 require_relative 'test_helper'
 
 class TestTable < Minitest::Test
-  include Collimator
 
   def setup
     Table.clear_all
-  end
-
-  def teardown
-    $stdout = STDOUT
   end
 
   def test_just_table
