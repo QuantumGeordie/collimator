@@ -1,11 +1,6 @@
-require 'test/unit'
-require File.expand_path("../../lib/collimator", __FILE__)
+require_relative 'test_helper'
 
-require 'date'
-require 'stringio'
-require 'test_helper'
-
-class TestTable < Test::Unit::TestCase
+class TestTable < Minitest::Test
   include Collimator
 
   def setup

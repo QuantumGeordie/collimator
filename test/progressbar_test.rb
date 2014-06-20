@@ -1,6 +1,6 @@
-require 'test_helper'
+require_relative 'test_helper'
 
-class TestProgressBar < Test::Unit::TestCase
+class TestProgressBar < Minitest::Test
   include Collimator
 
   def teardown

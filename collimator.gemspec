@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "collimator"
   gem.require_paths = ["lib"]
   gem.version       = Collimator::VERSION
-  gem.add_development_dependency('rdoc')
+
   gem.add_development_dependency('rake', '~> 0.9.2')
   gem.add_dependency('colored')
 end
