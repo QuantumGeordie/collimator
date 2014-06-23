@@ -41,4 +41,26 @@ class TestBarGraph < Minitest::Test
 
   end
 
+  def test_bar_graph__bad_color
+
+    data = [
+        {:name => 'Germany', :value => 4, :color => 'red'},
+        {:name => 'USA', :value => 4, :color => 'blue'},
+        {:name => 'Ghana', :value => 1},
+        {:name => 'Portugal', :value => 1, :color=> 'no_such_color_in_the_world'}
+    ]
+
+    BarGraph.data = data
+
+    out = capture_output do
+      BarGraph.plot
+    end
+
+    plot_text = out.string
+    plot_lines = plot_text.split("\n")
+    assert_equal 4, plot_lines.length, 'simple plot size in number of lines'
+
+
+  end
+
 end

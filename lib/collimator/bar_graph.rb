@@ -46,7 +46,11 @@ module Collimator
 
         color = data.fetch(:color, 'cyan')
 
-        bar = bar.send(color)
+        begin
+          bar = bar.send(color)
+        rescue NoMethodError
+          bar = bar
+        end
 
         value = @options[:show_values] ? "#{value.to_s.rjust(3)}" : ''
         full_output = "  #{header} #{value} #{bar}"

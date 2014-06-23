@@ -3,10 +3,10 @@ require File.expand_path('../../lib/collimator', __FILE__)
 
 include Collimator
 
-colors = %w(red blue green cyan yellow magenta)
+colors = %w(red blue green cyan yellow magenta no_color_exists)
 
-data = 10.times.map do |i|
-  { :name => "data #{i}", :value => Random.rand(50), :color => colors[Random.rand(6)] }
+data = 12.times.map do |i|
+  { :name => "data #{i}", :value => Random.rand(64), :color => colors[Random.rand(7)] }
 end
 
 puts 'Data with values displayed'
