@@ -43,7 +43,10 @@ module Collimator
         value = data[:value].to_i
         header = data[:name].ljust(header_width)
         bar = @bar_character * value
-        bar = bar.cyan
+
+        color = data.fetch(:color, 'cyan')
+
+        bar = bar.send(color)
 
         value = @options[:show_values] ? "#{value.to_s.rjust(3)}" : ''
         full_output = "  #{header} #{value} #{bar}"
