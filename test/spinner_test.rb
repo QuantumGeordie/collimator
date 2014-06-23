@@ -3,16 +3,22 @@ require_relative 'test_helper'
 class TestSpinner < Minitest::Test
 
   def test_spinner
-    spin_time = 1
+    icons = %w(- \\ | /)
+
+    spin_time = 0.5
     out = capture_output do
       Spinner.spin
       sleep spin_time
       Spinner.stop
     end
 
-    length_should_be = (spin_time / 0.1) * 2
     s = out.string.clone
-    assert_equal length_should_be, s.length
+    ss = s.split("\b")
+
+    assert_equal icons[0].strip, ss[0].strip
+    assert_equal icons[1].strip, ss[1].strip
+    assert_equal icons[2].strip, ss[2].strip
+    assert_equal icons[3].strip, ss[3].strip
 
     spin_time = 0.2
     out = capture_output do
@@ -21,9 +27,10 @@ class TestSpinner < Minitest::Test
       Spinner.stop
     end
 
-    length_should_be = (spin_time / 0.1) * 2
     s = out.string.clone
-    assert_equal length_should_be, s.length
+    ss = s.split("\b")
+    assert_equal icons[0], ss[0]
+
   end
 
 end
