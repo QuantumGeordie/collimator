@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    collimator (0.0.2)
+    collimator (0.0.3)
       colored
 
 GEM
